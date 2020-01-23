@@ -1,78 +1,74 @@
 package com.prathik.schoolpro.webapi
 
-import android.os.Build
+import android.view.View
+import com.google.gson.Gson
+import com.prathik.schoolpro.httpType.HttpType
+import com.prathik.schoolpro.interfaces.OnHttpResponse
+import com.prathik.schoolpro.webapi.coroutine.CoroutineBase
+import com.prathik.schoolpro.webapi.model.UserModel
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
-import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
-import com.google.gson.internal.Primitives
-import com.prathik.schoolpro.interfaces.OnHttpResponse
-import com.prathik.schoolpro.webapi.model.UserModel
-import kotlinx.coroutines.*
-import java.lang.reflect.Type
 
 
 class WebApi(reponseListener: OnHttpResponse) {
 
 
+    var responseListener: OnHttpResponse? = reponseListener
 
 
     enum class WebURL(val webUrl:String){
-        getChannelInfo("https://reqres.in/api/users")
+        GetChannelInfo("https://reqres.in/api/users")
     }
 
-    var reponseListener:OnHttpResponse? = reponseListener
 
 
-    open suspend fun<T> getResponse(httpUrl: String, params:HashMap<String,String>?,outputModelClass: Class<T>) = withContext(Dispatchers.IO) {
-        URL(httpUrl).openStream().use {response->
 
-            println("\n||====================|  JSON RESPONSE  |============================================================================================================================================================")
-            println("\n||    ")
-            println("\n||     HTTP REQUEST TYPE : GET")
+      fun getAllChannels(){
 
-                var reqParam = ""
-                if (params != null) {
-                    reqParam = "?"
-                    for (param in params) {
-                        reqParam += "&" + URLEncoder.encode(param.key, "UTF-8") + "=" + URLEncoder.encode(
-                            param.value,
-                            "UTF-8"
-                        )
-                    }
-                }
+         println("||  final res Name54 : webapi")
 
-                println("\n||     HTTP REQUEST URL : ${httpUrl + reqParam}")
-                val url = URL(httpUrl + reqParam)
+        CoroutineBase.instance.launch(Dispatchers.IO) {
+            var params:  HashMap<String, String>?
+            params= HashMap()
+            params["page"] = "2"
 
-                with(url.openConnection() as HttpURLConnection) {
-                    requestMethod = "GET"  // optional default is GET
+                HttpType(object : OnHttpResponse {
+                    override fun <T> onResponse(objectResponse: T) {
+                        if (objectResponse != null) {
 
-                    println("\n||     HTTP RESPONSE CODE : $responseCode")
-
-                    var jsonResponse: T? = null
-
-                    inputStream.bufferedReader().use {
-                        it.lines().forEach { line ->
-
-                            val gson = Gson()
-
-                            jsonResponse = gson.fromJson(line.toString(), outputModelClass)
-
-                            println("\n||     JSON RESPONSE :  $line")
-                            println("\n||    ")
-                            println("\n||===================================================================================================================================================================================================")
-
+                            responseListener?.onResponse(objectResponse)
                         }
+                    }
+                }).response_GET(WebURL.GetChannelInfo.webUrl, params, UserModel::class.java)
 
-                        reponseListener?.onResponse(jsonResponse)
+        }
+      }
 
+    fun getAllDelayedChannels(){
+        CoroutineBase.instance.launch(Dispatchers.IO) {
+            var params:  HashMap<String, String>?
+            params= HashMap()
+            params["delay"] = "5"
+
+            HttpType(object : OnHttpResponse {
+                override fun <T> onResponse(objectResponse: T) {
+                    if (objectResponse != null) {
+
+                        responseListener?.onResponse(objectResponse)
                     }
                 }
+            }).response_GET(WebURL.GetChannelInfo.webUrl, params, UserModel::class.java)
 
         }
     }
+
+
+
+
+
 
 
 

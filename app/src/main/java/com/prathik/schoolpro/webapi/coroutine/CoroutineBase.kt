@@ -22,9 +22,9 @@ class CoroutineBase {
         val coroutineScope = CoroutineScope(Dispatchers.Main + parentJob + coroutineExceptionHandler)
 
 
-        fun getCoroute():CoroutineScope{
-            return coroutineScope
-        }
+
+
+        val instance= coroutineScope
     }
 
 
