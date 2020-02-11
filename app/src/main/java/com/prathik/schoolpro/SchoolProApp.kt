@@ -1,12 +1,8 @@
 package com.prathik.schoolpro
 
 import android.app.Application
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import com.facebook.stetho.Stetho
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider
 import java.util.regex.Pattern
@@ -22,7 +18,7 @@ class SchoolProApp:Application() {
 
         Realm.init(applicationContext)
         val config = RealmConfiguration.Builder()
-            .name("schoolDB")
+            .name("schoolDB.realm")
             .schemaVersion(2)
             .deleteRealmIfMigrationNeeded()
             .build()

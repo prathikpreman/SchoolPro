@@ -1,7 +1,8 @@
 package com.prathik.schoolpro
 
-import android.support.v7.app.AppCompatActivity
+
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.prathik.schoolpro.dataResources.channel.webapi.ChannelDataSource
 import com.prathik.schoolpro.interfaces.OnHttpResponse
@@ -13,10 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class Main2Activity : AppCompatActivity() {
-
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +30,6 @@ class Main2Activity : AppCompatActivity() {
                 println("||   RESxxxxxxx Delayed : Name: ${obj.data[1].email}")
                 println("||   RESxxxxxxx : size: ${obj.data.size}")
 
-
             }
 
         }).getAllDelayedChannels()
@@ -47,7 +43,7 @@ class Main2Activity : AppCompatActivity() {
                 println("||   RESxxxxxxx : Name: ${obj.data[1].email}")
                 println("||   RESxxxxxxx : size: ${obj.data.size}")
 
-                progBar.visibility= View.GONE
+                //progBar.visibility= View.GONE
             }
 
 

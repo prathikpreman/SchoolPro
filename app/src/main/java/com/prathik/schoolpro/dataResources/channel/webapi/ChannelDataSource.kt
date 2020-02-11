@@ -112,10 +112,9 @@ import java.util.*
     }
 
      class GetFromLocal{
-
           fun getAllData():RealmResults<ChannelsRealmModel>?{
             var realm:Realm = Realm.getDefaultInstance()
-            var usermodalData = realm?.where(ChannelsRealmModel::class.java!!)?.findAll()
+            var usermodalData = realm.where(ChannelsRealmModel::class.java!!)?.findAll()
             return usermodalData
         }
     }

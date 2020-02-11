@@ -1,7 +1,8 @@
 package com.prathik.schoolpro.util
 
-import android.support.v7.app.AppCompatActivity
+
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.prathik.schoolpro.webapi.coroutine.CoroutineBase
 import kotlinx.coroutines.cancel
 
