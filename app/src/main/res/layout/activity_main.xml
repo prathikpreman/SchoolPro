@@ -9,34 +9,17 @@
         tools:context=".MainActivity">
 
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:orientation="vertical"
-                  android:layout_height="match_parent">
-        <ImageView android:layout_width="match_parent"
-                   android:id="@+id/holderImage1"
-                   android:layout_height="200dp">
-
-        </ImageView>
-
-        <ImageView android:layout_width="match_parent"
-                   android:id="@+id/holderImage2"
-                   android:layout_height="200dp">
-
-        </ImageView>
-
-        <ImageView android:layout_width="match_parent"
-                   android:id="@+id/holderImage3"
-                   android:layout_height="200dp">
-
-        </ImageView>
-    </LinearLayout>
+    <WebView android:layout_width="match_parent"
+             android:id="@+id/webView"
+             android:layout_height="match_parent"/>
 
 
-    <ProgressBar android:layout_width="wrap_content"
-                 android:layout_gravity="center"
+    <ProgressBar android:layout_width="match_parent"
                  android:id="@+id/progBar"
+                 style="?android:attr/progressBarStyleHorizontal"
                  android:layout_height="wrap_content">
 
     </ProgressBar>
+
 
 </FrameLayout>

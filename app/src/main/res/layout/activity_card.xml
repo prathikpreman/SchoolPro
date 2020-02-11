@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:context=".CardActivity">
+
+
+
+
+    <com.wajahatkarim3.easyflipview.EasyFlipView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:flipOnTouch="true"
+            app:flipEnabled="true"
+            app:flipDuration="1000"
+            app:autoFlipBackTime="1000"
+            app:flipFrom="right"
+            app:flipType="horizontal"
+            app:autoFlipBack="true"
+    >
+
+
+        <!-- Back Layout Goes Here -->
+        <include layout="@layout/card_back"/>
+
+        <!-- Front Layout Goes Here -->
+        <include layout="@layout/card_front"/>
+
+
+
+    </com.wajahatkarim3.easyflipview.EasyFlipView>
+
+
+
+</LinearLayout>
