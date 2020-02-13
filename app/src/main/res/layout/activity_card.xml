@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".CardActivity">
 
 
@@ -14,10 +14,12 @@
     <com.wajahatkarim3.easyflipview.EasyFlipView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:flipOnTouch="true"
+            android:id="@+id/cardFlipView"
+            app:flipOnTouch="false"
             app:flipEnabled="true"
             app:flipDuration="1000"
             app:autoFlipBackTime="1000"
+            android:visibility="visible"
             app:flipFrom="right"
             app:flipType="horizontal"
             app:autoFlipBack="true"

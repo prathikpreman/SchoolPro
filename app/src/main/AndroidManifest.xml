@@ -3,6 +3,8 @@
           package="com.prathik.schoolpro">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 
     <application
             android:name=".SchoolProApp"
@@ -13,6 +15,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".AddCard">
+
+        </activity>
         <activity android:name=".CardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,7 +31,6 @@
                 android:screenOrientation="landscape">
         </activity>
         <activity android:name=".Main2Activity">
-
         </activity>
         <activity android:name=".util.BaseActivity">
         </activity>

@@ -19,7 +19,7 @@ class SchoolProApp:Application() {
         Realm.init(applicationContext)
         val config = RealmConfiguration.Builder()
             .name("schoolDB.realm")
-            .schemaVersion(2)
+            .schemaVersion(3)
             .deleteRealmIfMigrationNeeded()
             .build()
 

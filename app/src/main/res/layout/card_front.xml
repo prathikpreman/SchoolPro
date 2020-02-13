@@ -16,11 +16,11 @@
                      android:layout_height="match_parent">
 
             <ImageView android:layout_width="match_parent"
-                       android:background="@drawable/bg_universe"
+                       android:background="@drawable/green_bg"
                        android:layout_height="match_parent"/>
 
             <TextView android:layout_width="match_parent"
-                      android:background="#9E005F9E"
+                      android:background="#66265200"
                       android:layout_height="match_parent"/>
 
 
@@ -28,16 +28,36 @@
                           android:orientation="vertical"
                           android:layout_height="match_parent">
 
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_weight="1"
+                          android:layout_gravity="left"
+                          android:gravity="left"
+                          android:paddingLeft="20dp"
+                          android:orientation="vertical"
+                          android:layout_height="0dp">
+
+                <ImageView android:layout_width="100dp"
+                           android:src="@drawable/federalbank"
+                           android:id="@+id/bankLogo"
+                           android:layout_gravity="left"
+                           android:layout_height="wrap_content"/>
+            </LinearLayout>
+
 
                 <LinearLayout android:layout_width="match_parent"
-                              android:layout_weight="3"
+                              android:layout_weight="2"
+                              android:layout_gravity="center"
+                              android:gravity="center"
+                              android:orientation="vertical"
                               android:layout_height="0dp">
+
 
                     <TextView android:layout_width="match_parent"
                               android:text="4256 1485 3658 4125"
                               android:layout_gravity="center"
                               android:gravity="center"
                               android:textSize="12sp"
+                              android:id="@+id/raw_cardNumber"
                               android:letterSpacing="0.3"
                               android:fontFamily="@font/cardfont"
                               android:textColor="#fff"
@@ -59,6 +79,7 @@
                                   android:layout_gravity="left|center"
                                   android:gravity="left|center"
                                   android:textSize="12sp"
+                                  android:id="@+id/raw_cardName"
                                   android:layout_marginLeft="30dp"
                                   android:fontFamily="@font/cardfont"
                                   android:textColor="#fff"
@@ -74,7 +95,7 @@
 
                         <ImageView android:layout_width="wrap_content"
                                    android:src="@drawable/ic_visa"
-                                   android:tint="#fff"
+                                   android:id="@+id/cardIcon"
                                    android:layout_gravity="bottom|right"
                                    android:layout_height="wrap_content"/>
 

@@ -1,3 +1,87 @@
 <resources>
-    <string name="app_name">Live TV</string>
+    <string name="app_name">E Wallet</string>
+    <string name="fraud_msg">Never share your OTP with anyone. If you receive an OTP for a transaction that was not
+        initiated by you, then immediately contact the bank or card issuer. Be extra careful not to share the OTP,
+        especially over a phone call
+    </string>
+
+    <string-array name="cardMonth">
+        <item>1 (Jan)</item>
+        <item>2 (Feb)</item>
+        <item>3 (Mar)</item>
+        <item>4 (Apr)</item>
+        <item>5 (May)</item>
+        <item>6 (Jun)</item>
+        <item>7 (Jul)</item>
+        <item>8 (Aug)</item>
+        <item>9 (Sep)</item>
+        <item>10 (Oct)</item>
+        <item>11 (Nov)</item>
+        <item>12 (Dec)</item>
+    </string-array>
+
+
+
+
+
+
+
+    <string-array name="bankNames">
+        <item>Allahabad Bank</item>
+        <item>Andhra Bank</item>
+        <item>Axis Bank Limited</item>
+        <item>Bandhan Bank Limited</item>
+        <item>Bank of Baroda</item>
+        <item>Bank of India</item>
+        <item>Bank of Maharashtra</item>
+        <item>Canara Bank</item>
+        <item>Catholic Syrian Bank Limited</item>
+        <item>Central Bank of India</item>
+        <item>City Union Bank Limited</item>
+        <item>Corporation Bank</item>
+        <item>DCB Bank Limited</item>
+        <item>Dena Bank</item>
+        <item>Dhanlaxmi Bank Limited</item>
+        <item>Federal Bank Limited</item>
+        <item>HDFC Bank Limited</item>
+        <item>ICICI Bank Limited</item>
+        <item>IDBI Bank</item>
+        <item>IDFC Bank Limited</item>
+        <item>Indian Bank</item>
+        <item>Indian Overseas Bank</item>
+        <item>IndusInd Bank Limited</item>
+        <item>Jammu amp; Kashmir Bank Limited</item>
+        <item>Karnataka Bank Limited</item>
+        <item>Karur Vysya Bank Limited</item>
+        <item>Kotak Mahindra Bank Limited</item>
+        <item>Lakshmi Vilas Bank Limited</item>
+        <item>Nainital Bank Limited</item>
+        <item>Oriental Bank of Commerce</item>
+        <item>Punjab amp; Sind Bank</item>
+        <item>Punjab National Bank</item>
+        <item>RBL Bank Limited</item>
+        <item>South Indian Bank Limited</item>
+        <item>State Bank of India</item>
+        <item>Syndicate Bank</item>
+        <item>Tamilnad Mercantile Bank Limited</item>
+        <item>UCO Bank</item>
+        <item>Union Bank of India</item>
+        <item>United Bank of India</item>
+        <item>Vijaya Bank</item>
+        <item>YES Bank Limited</item>
+
+    </string-array>
+
+
+    <string-array name="cardTypes">
+    <item>Visa</item>
+    <item>MasterCard</item>
+    <item>RuPay</item>
+    <item>Visa Electron</item>
+    <item>Maestro</item>
+    </string-array>
+
 </resources>
+
+
+
