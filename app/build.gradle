@@ -16,6 +16,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -61,6 +62,12 @@ dependencies {
     implementation 'com.github.HaarigerHarald:android-youtubeExtractor:v1.7.0'
 
     implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
+
+    implementation 'com.gtomato.android.library:carouselview:2.0.1'
+    implementation 'com.google.guava:guava:28.2-jre'
+    implementation 'commons-codec:commons-codec:1.13'
+    implementation 'com.google.zxing:core:3.2.0'
+
 
     /*  implementation 'com.google.android.exoplayer:exoplayer-core:2.10.1'
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.1'

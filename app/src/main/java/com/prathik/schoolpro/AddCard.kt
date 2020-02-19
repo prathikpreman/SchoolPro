@@ -1,5 +1,6 @@
 package com.prathik.schoolpro
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,18 +12,54 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_add_card.*
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.widget.Toast
+import com.prathik.schoolpro.adapter.CardImageAdapter
+import android.content.Intent
+import android.support.v4.app.SupportActivity
+import android.support.v4.app.SupportActivity.ExtraData
+import android.support.v4.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
-class AddCard : AppCompatActivity() {
+
+
+class AddCard : AppCompatActivity(),CardImageAdapter.OnSkinSelectedListener {
 
     lateinit var cardInfo:CardInfo
+
+    var SKIN_SELECTED_POSITION:Int=0
+    lateinit var cardImageAdapter:CardImageAdapter
+
+    var skinThumbsId = arrayOf<Int>(
+        R.drawable.cardbg_black,
+        R.drawable.cardbg_brown,
+        R.drawable.cardbg_green,
+        R.drawable.cardbg_pink,
+        R.drawable.cardbg_red,
+        R.drawable.cardbg_violet,
+        R.drawable.cardbg_skyblue
+    )
+
+    private fun init() {
+        cardImageAdapter = CardImageAdapter(this,skinThumbsId,SKIN_SELECTED_POSITION,this)
+        gridview.adapter=cardImageAdapter
+    }
+
+    override fun onSkinSelected(position: Int) {
+        SKIN_SELECTED_POSITION=position
+        cardImageAdapter = CardImageAdapter(this,skinThumbsId,position,this)
+        gridview.adapter=cardImageAdapter
+       // Toast.makeText(this," pos : $position",Toast.LENGTH_LONG).show()
+        cardImageAdapter.notifyDataSetChanged()
+    }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_card)
 
+        init()
 
 
         setCardMonth()
@@ -33,16 +70,31 @@ class AddCard : AppCompatActivity() {
     }
 
     private fun addCardBtnAction() {
-        addCardBtn.setOnClickListener {
-            cardInfo=CardInfo()
-            cardInfo.cardType=cardTypeSpinner.selectedItem.toString()
-            cardInfo.bankName=bankSpinner.selectedItem.toString()
-            cardInfo.validThrough=validThroughText.text.toString()
-            cardInfo.nameOnCard=EcarduserName.text.toString()
-            cardInfo.cvv=EcardCvv.text.toString()
-            cardInfo.cardNo=EcardNumber.text.toString()
 
-            saveCard(cardInfo)
+
+        addCardBtn.setOnClickListener {
+
+            when {
+                EcardNumber.text.length<16 -> EcardNumber.error = "Invaid Card Number"
+                EcardCvv.text.length<3 -> EcardCvv.error = "Invaid CVV"
+                validThroughText.text.length<7 -> validThroughText.error = "Expiry should be of format MM/YYYY"
+                EcarduserName.text.isEmpty() -> EcarduserName.error="Card User Name Required"
+                else -> {
+
+                    cardInfo=CardInfo()
+                    cardInfo.cardType=cardTypeSpinner.selectedItem.toString()
+                    cardInfo.bankName=bankSpinner.selectedItem.toString()
+                    cardInfo.validThrough=validThroughText.text.toString()
+                    cardInfo.nameOnCard=EcarduserName.text.toString()
+                    cardInfo.cvv=EcardCvv.text.toString()
+                    cardInfo.cardNo=EcardNumber.text.toString()
+                    cardInfo.cardSkin=SKIN_SELECTED_POSITION
+
+                    saveCard(cardInfo)
+                }
+            }
+
+
         }
     }
 
@@ -124,6 +176,8 @@ class AddCard : AppCompatActivity() {
           card.nameOnCard=cardInfos.nameOnCard
           card.validThrough=cardInfos.validThrough
           card.bankName=cardInfos.bankName
+          card.bankName=cardInfos.bankName
+          card.cardSkin=cardInfos.cardSkin
 
       }
 
@@ -138,7 +192,13 @@ class AddCard : AppCompatActivity() {
 
       }
 
+        val intent = Intent()
+        setResult(Activity.RESULT_OK,intent)
         finish()
     }
+
+
+
+
 
 }

@@ -4,6 +4,10 @@
         initiated by you, then immediately contact the bank or card issuer. Be extra careful not to share the OTP,
         especially over a phone call
     </string>
+    <string name="autheticator_text">Install Google Authenticator App. Scan below Qr code or copy paste below key to the
+        Authenticator to start using two step authentication
+    </string>
+    <string name="settings">Settings</string>
 
     <string-array name="cardMonth">
         <item>1 (Jan)</item>
@@ -19,11 +23,6 @@
         <item>11 (Nov)</item>
         <item>12 (Dec)</item>
     </string-array>
-
-
-
-
-
 
 
     <string-array name="bankNames">
@@ -74,11 +73,11 @@
 
 
     <string-array name="cardTypes">
-    <item>Visa</item>
-    <item>MasterCard</item>
-    <item>RuPay</item>
-    <item>Visa Electron</item>
-    <item>Maestro</item>
+        <item>Visa</item>
+        <item>MasterCard</item>
+        <item>RuPay</item>
+        <item>Visa Electron</item>
+        <item>Maestro</item>
     </string-array>
 
 </resources>

@@ -16,11 +16,12 @@
                      android:layout_height="match_parent">
 
             <ImageView android:layout_width="match_parent"
+                       android:id="@+id/cardSkinLayout"
                        android:background="@drawable/green_bg"
                        android:layout_height="match_parent"/>
 
             <TextView android:layout_width="match_parent"
-                      android:background="#66265200"
+                      android:background="#66000000"
                       android:layout_height="match_parent"/>
 
 
