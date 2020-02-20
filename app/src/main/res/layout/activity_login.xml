@@ -51,7 +51,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:maxLength="4"
+                android:maxLength="6"
                 android:hint="Enter Google Auth Key"/>
     </android.support.design.widget.TextInputLayout>
 

@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
             twoWayKeyET.visibility=View.VISIBLE
 
           var authenticator= Authenticator()
-          var key:String?= authenticator.getTOTPCode(PreferenceManager.getStringValue(this,PreferenceManager.TWO_STEP_AUTHENTCATION_KEY))
+
 
           twowayKey.addTextChangedListener(object :TextWatcher{
               override fun afterTextChanged(s: Editable?) {
@@ -78,11 +78,11 @@ class LoginActivity : AppCompatActivity() {
               }
 
               override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                  if(twowayKey.text.toString().length==6 && twowayKey.text.toString()==key){
+                  if(twowayKey.text.toString().length==6 && twowayKey.text.toString()==authenticator.getTOTPCode(PreferenceManager.getStringValue(this@LoginActivity,PreferenceManager.TWO_STEP_AUTHENTCATION_KEY))){
 
                       goHome()
                   }
-                  else{
+                  else if(twowayKey.text.toString().length==6){
                       twowayKey.error="Wrong TOTP"
                   }
               }
@@ -93,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
         else{
            goHome()
         }
-
 
     }
 

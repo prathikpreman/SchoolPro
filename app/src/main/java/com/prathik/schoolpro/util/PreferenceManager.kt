@@ -22,7 +22,7 @@ object PreferenceManager {
     }
 
     fun getStringValue(context: Context,key:String): String {
-        return getSharedPreferences(context,key).getString(key, null)
+        return getSharedPreferences(context,key).getString(key, "")
     }
 
     fun setStringValue(context: Context,key:String, newValue: String) {
