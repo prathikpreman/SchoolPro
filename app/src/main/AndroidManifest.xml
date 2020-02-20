@@ -15,20 +15,24 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".TwoWayAuthentication">
-
-        </activity>
-        <activity android:name=".Corousel">
-        </activity>
-        <activity android:name=".AddCard">
-        </activity>
-        <activity android:name=".CardActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".Settings">
+        </activity>
+        <activity android:name=".TwoWayAuthentication">
+        </activity>
+        <activity android:name=".Corousel">
+        </activity>
+        <activity android:name=".AddCard">
+        </activity>
+        <activity android:name=".CardActivity">
+
         </activity>
         <activity
                 android:name=".PlayerActivity"

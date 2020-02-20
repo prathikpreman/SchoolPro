@@ -35,10 +35,8 @@ class Corousel : AppCompatActivity() {
 
         cardAdapter = CardAdapter(cardList,this)
 
-
-
-        carousel.setTransformer(CoverFlowViewTransformer())
-        carousel.setAdapter(cardAdapter)
+        carousel.transformer = CoverFlowViewTransformer()
+        carousel.adapter = cardAdapter
 
     }
 }

@@ -32,27 +32,18 @@ import kotlinx.android.synthetic.main.activity_corousel.*
 
 class CardActivity : AppCompatActivity() {
 
-    lateinit var obj:BiometricUtils
-    private var cancellationSignal: CancellationSignal? = null
+
     lateinit var cardList:ArrayList<CardInfo>
     lateinit var cardAdapter:CardAdapter
 
     companion object{
-        final val ADDCARD_REQUESTCODE=456
+         const val ADDCARD_REQUESTCODE=456
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_cardhome)
-
-
-
-        /*obj= BiometricUtils()
-        if(obj.isBiometricPromptEnabled()&& obj.isFingerprintAvailable(this) && obj.isHardwareSupported(this) && obj.isPermissionGranted(this) && obj.isSdkVersionSupported()){
-            Toast.makeText(this,"condition OK",Toast.LENGTH_LONG).show()
-            displayBiometricPrompt()
-        }*/
 
 
         addFab.setOnClickListener {
@@ -75,6 +66,7 @@ class CardActivity : AppCompatActivity() {
 
             R.id.settings ->{
 
+                startActivity(Intent(this,Settings::class.java))
             }
         }
         return true
@@ -90,61 +82,7 @@ class CardActivity : AppCompatActivity() {
         }
     }
 
-        @TargetApi(Build.VERSION_CODES.P)
-        private fun displayBiometricPrompt() {
 
-            val bm = BiometricPrompt.Builder(applicationContext)
-                .setTitle("Authenticate")
-                .setSubtitle("Place your finger on the fingerprint scanner to login")
-               // .setDescription("Add a description")
-                .setNegativeButton("CANCEL", mainExecutor, object :DialogInterface.OnClickListener{
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                     finish()
-                    }
-
-                })
-                .build()
-             bm.authenticate(getCancellationSignal(), mainExecutor, getAuthenticationCallback())
-        }
-
-
-    private fun getCancellationSignal(): CancellationSignal? {
-        cancellationSignal = CancellationSignal()
-        cancellationSignal?.setOnCancelListener(CancellationSignal.OnCancelListener {
-            Toast.makeText(this,"Cancelled by signal",Toast.LENGTH_LONG)
-        })
-        return cancellationSignal
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.P)
-    private fun getAuthenticationCallback():BiometricPrompt.AuthenticationCallback {
-        return object:BiometricPrompt.AuthenticationCallback() {
-
-           override fun onAuthenticationError(errorCode:Int,
-                                      errString:CharSequence) {
-               finish()
-
-                super.onAuthenticationError(errorCode, errString)
-            }
-
-            override fun onAuthenticationHelp(helpCode:Int,
-                                     helpString:CharSequence) {
-                super.onAuthenticationHelp(helpCode, helpString)
-            }
-
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-            }
-
-
-            override fun onAuthenticationSucceeded(
-                result:BiometricPrompt.AuthenticationResult) {
-                Toast.makeText(this@CardActivity,"Authentication succeed:  ",Toast.LENGTH_LONG).show()
-                super.onAuthenticationSucceeded(result)
-            }
-        }
-    }
 
 
 

@@ -21,16 +21,21 @@ class TwoWayAuthentication : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_two_way_authentication)
-
         var authenticator=Authenticator()
-        var key=authenticator.generateSecretKey()
+
+        var key=PreferenceManager.getStringValue(this,PreferenceManager.TWO_STEP_AUTHENTCATION_KEY)
         Log.d("SecretKey567","Key: ${key}")
+
+        if(key.isEmpty()){
+            var newKey=authenticator.generateSecretKey()
+            Log.d("SecretKey567","Key: ${newKey}")
+            PreferenceManager.setStringValue(this,PreferenceManager.TWO_STEP_AUTHENTCATION_KEY,newKey)
+            key=newKey
+        }
+
         Log.d("SecretKey567 TOTP ","6 Key: ${authenticator.getTOTPCode(key)}")
-
         var qKey=authenticator.getGoogleAuthenticatorBarCode(key,getString(R.string.app_name),getString(R.string.app_name))
-
         qrCodeView.setImageBitmap(authenticator.generateQRBitmap(qKey,this))
-
         setKeyText(key)
         setCheckBox()
 
