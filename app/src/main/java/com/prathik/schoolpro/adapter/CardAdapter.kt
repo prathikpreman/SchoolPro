@@ -1,10 +1,18 @@
 package com.prathik.schoolpro.adapter
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
+import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -17,6 +25,13 @@ import com.wajahatkarim3.easyflipview.EasyFlipView
 
 class CardAdapter( private val cardList: ArrayList<CardInfo>, private val context: Context) :
     RecyclerView.Adapter<CardAdapter.CardHolder>() {
+
+
+    lateinit var notificationManager : NotificationManager
+    lateinit var notificationChannel : NotificationChannel
+    lateinit var builder : Notification.Builder
+    private val channelId = "i.apps.notifications"
+    private val description = "Test notification"
 
     val cardTypeIcon: IntArray = intArrayOf(
         R.drawable.ic_visa,
@@ -94,10 +109,12 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
     }
 
     override fun onBindViewHolder(holder: CardAdapter.CardHolder, position: Int) {
+
         var card = cardList[position]
         holder.cardName.text = card.nameOnCard
         holder.cardCVV.text = card.cvv
-        holder.cardNumber.text = card.cardNo.substring(0,4)+" "+card.cardNo.substring(4,8)+" "+card.cardNo.substring(8,12)+" "+card.cardNo.substring(12,16)
+        var cardNumber=card.cardNo.substring(0,4)+" "+card.cardNo.substring(4,8)+" "+card.cardNo.substring(8,12)+" "+card.cardNo.substring(12,16)
+        holder.cardNumber.text = cardNumber
         holder.cardFlipView.setOnClickListener {
             holder.cardFlipView.flipTheView()
         }
@@ -105,6 +122,10 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
         setCardTypeIcon(card.cardType, holder)
         setBankIcon(card.bankName, holder)
         setCardSkin(card.cardSkin,holder)
+
+        holder.notiBtn.setOnClickListener {
+            showNotification(cardNumber,card.validThrough)
+        }
     }
 
     class CardHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -116,6 +137,7 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
         var cardIcon: ImageView = v.findViewById(R.id.cardIcon)
         var bankLogo: ImageView = v.findViewById(R.id.bankLogo)
         var cardSkinLayout: ImageView = v.findViewById(R.id.cardSkinLayout)
+        var notiBtn: Button = v.findViewById(R.id.notiBtn)
     }
 
 
@@ -150,7 +172,7 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
 
     }
 
-    private fun setBankIcon(bank: String, holder: CardAdapter.CardHolder) {
+    private fun setBankIcon(bank: String, holder: CardHolder) {
         val res = context.resources
         val bankNames = res.getStringArray(R.array.bankNames)
 
@@ -162,5 +184,39 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
             }
         }
 
+    }
+
+    private fun showNotification(cardNo:String,validThrough:String){
+        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = NotificationChannel(
+                channelId,description,NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(false)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+            builder = Notification.Builder(context,channelId)
+             //   .setContent(contentView)
+                .setContentTitle(cardNo)
+                .setContentText(validThrough)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(context.resources,
+                    R.drawable.ic_launcher_background))
+             //   .setContentIntent(pendingIntent)
+        }else{
+
+            builder = Notification.Builder(context)
+              //  .setContent(contentView)
+                .setContentTitle(cardNo)
+                .setContentText(validThrough)
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setLargeIcon(BitmapFactory.decodeResource(context.resources,
+                    R.drawable.ic_launcher_background))
+              //  .setContentIntent(pendingIntent)
+        }
+        notificationManager.notify(1234,builder.build())
     }
 }

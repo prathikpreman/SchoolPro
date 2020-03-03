@@ -15,7 +15,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+                  android:finishOnTaskLaunch="true"
+                  android:clearTaskOnLaunch="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -23,15 +25,19 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Settings">
+        <activity android:name=".Settings"
+                  android:finishOnTaskLaunch="true">
         </activity>
         <activity android:name=".TwoWayAuthentication">
         </activity>
         <activity android:name=".Corousel">
         </activity>
-        <activity android:name=".AddCard">
+        <activity android:name=".AddCard"
+                  android:finishOnTaskLaunch="true">
         </activity>
-        <activity android:name=".CardActivity">
+        <activity android:name=".CardActivity"
+                  android:finishOnTaskLaunch="true"
+                  android:clearTaskOnLaunch="true">
 
         </activity>
         <activity

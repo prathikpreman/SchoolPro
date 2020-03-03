@@ -33,9 +33,16 @@
         <include layout="@layout/card_front"/>
 
 
-
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
 
+    <Button android:layout_width="wrap_content"
+            android:text="Show as Notification"
+            android:id="@+id/notiBtn"
+            android:textColor="#fff"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorPrimary"
+            android:gravity="center"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

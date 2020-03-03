@@ -15,11 +15,12 @@ import android.text.TextWatcher
 import android.widget.Toast
 import com.prathik.schoolpro.adapter.CardImageAdapter
 import android.content.Intent
+import android.util.Base64
+import java.util.Base64.getEncoder
 import android.support.v4.app.SupportActivity
 import android.support.v4.app.SupportActivity.ExtraData
 import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 
@@ -43,6 +44,7 @@ class AddCard : AppCompatActivity(),CardImageAdapter.OnSkinSelectedListener {
     private fun init() {
         cardImageAdapter = CardImageAdapter(this,skinThumbsId,SKIN_SELECTED_POSITION,this)
         gridview.adapter=cardImageAdapter
+
     }
 
     override fun onSkinSelected(position: Int) {
@@ -59,7 +61,14 @@ class AddCard : AppCompatActivity(),CardImageAdapter.OnSkinSelectedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_card)
 
+        val actionbar = supportActionBar
+        actionbar?.title = "Add Card"
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+
+
         init()
+
+
 
 
         setCardMonth()
@@ -179,9 +188,10 @@ class AddCard : AppCompatActivity(),CardImageAdapter.OnSkinSelectedListener {
           card.bankName=cardInfos.bankName
           card.cardSkin=cardInfos.cardSkin
 
+          val imageBytes = Base64.decode(cardInfos.cardNo, Base64.DEFAULT)
+
+
       }
-
-
 
       val users = realm.where<CardInfo>(CardInfo::class.java).findAll()
 
@@ -189,14 +199,31 @@ class AddCard : AppCompatActivity(),CardImageAdapter.OnSkinSelectedListener {
       for (user in users){
           Log.d("value657657","id : ${user.id}")
           Log.d("value657657","value : ${user.cardNo}")
-
       }
+        openHome()
+    }
 
-        val intent = Intent()
-        setResult(Activity.RESULT_OK,intent)
+
+    override fun onPause() {
+        super.onPause()
         finish()
     }
 
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        openHome()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        openHome()
+        return true
+    }
+
+    private fun openHome() {
+        startActivity(Intent(this,CardActivity::class.java))
+        finish()
+    }
 
 
 

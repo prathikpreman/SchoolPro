@@ -18,7 +18,9 @@ class Settings : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        actionBar?.title="Settings"
+        val actionbar = supportActionBar
+        actionbar?.title = "Add Card"
+        actionbar?.setDisplayHomeAsUpEnabled(true)
 
         isFingerPrintAvailable()
         setTwoStepAuth()
@@ -57,4 +59,28 @@ class Settings : AppCompatActivity() {
         }
 
     }
+
+
+    override fun onPause() {
+        super.onPause()
+        finish()
+    }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        openHome()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        openHome()
+        return true
+    }
+
+    private fun openHome() {
+        startActivity(Intent(this,CardActivity::class.java))
+        finish()
+    }
+
+
 }

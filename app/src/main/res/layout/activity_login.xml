@@ -1,59 +1,389 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:weightSum="10">
 
 
-    <android.support.design.widget.TextInputLayout
-            android:layout_gravity="center"
-            android:id="@+id/passKeyET"
-            android:gravity="center"
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_weight="5"
+                  android:layout_gravity="center"
+                  android:orientation="vertical"
+                  android:gravity="center"
+                  android:layout_height="0dp">
+
+        <TextView android:layout_width="match_parent"
+                  android:id="@+id/loginPasscode"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:textSize="30sp"
+                  android:maxLength="6"
+                  android:maxLines="1"
+                  android:letterSpacing="0.6"
+                  android:text=""
+        />
+        <TextView android:layout_width="match_parent"
+                  android:text="Wrong PIN"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:id="@+id/wrongPinTag"
+                  android:visibility="invisible"
+                  android:textColor="#FF3F3F"
+                  android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+   <TextView android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"/>
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:weightSum="4">
 
-        <EditText
-                android:id="@+id/loginPass"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:letterSpacing="0.8"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:maxLength="4"
-                android:hint="Enter Pass Key"/>
-    </android.support.design.widget.TextInputLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="3"
+                android:orientation="horizontal">
 
+            <LinearLayout
+                    android:id="@+id/key1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtone"
+                        android:text="@string/one"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
 
-    <android.support.design.widget.TextInputLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:id="@+id/twoWayKeyET"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </LinearLayout>
 
-        <EditText
-                android:id="@+id/twowayKey"
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/key2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txttwo"
+                        android:text="@string/two"
+                        android:textSize="30sp"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/black"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/key3"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtthree"
+                        android:text="@string/three"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:letterSpacing="0.8"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:maxLength="6"
-                android:hint="Enter Google Auth Key"/>
-    </android.support.design.widget.TextInputLayout>
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:id="@+id/key4"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtfour"
+                        android:text="@string/four"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:focusable="true"
+                    android:id="@+id/key5"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtfive"
+                        android:text="@string/five"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:focusable="true"
+                    android:id="@+id/key6"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtsix"
+                        android:text="@string/six"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:focusable="true"
+                    android:id="@+id/key7"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtseven"
+                        android:text="@string/seven"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/key8"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txteight"
+                        android:text="@string/eight"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/key9"
+                    android:orientation="vertical">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtnine"
+                        android:text="@string/nine"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black"
+                        android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="3"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/txtok"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/key0"
+                    android:text="@string/zero"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+            <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+
+
+
+
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/ripple_effect"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/keyBackspace"
+                    android:padding="22dp"
+                    android:src="@drawable/ic_backspace"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

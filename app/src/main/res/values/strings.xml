@@ -80,6 +80,37 @@
         <item>Maestro</item>
     </string-array>
 
+
+
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="zero">0</string>
+    <string name="abc">ABC</string>
+    <string name="def">DEF</string>
+    <string name="ghi">GHI</string>
+    <string name="jkl">JKL</string>
+    <string name="mno">MNO</string>
+    <string name="pqrs">PQRS</string>
+    <string name="tuv">TUV</string>
+    <string name="wxyz">WXYZ</string>
+    <string name="need">We need to text you a</string>
+    <string name="code">confirmation code to get started.</string>
+    <string name="awsm">Awesome, Thanks!</string>
+    <string name="sent">We have sent a confirmation code.</string>
+    <string name="soon">You should get it soon.</string>
+    <string name="why">why?</string>
+    <string name="phone">PHONE NUMBER</string>
+    <string name="verify">VERIFY</string>
+    <string name="resend">RESEND</string>
+    <string name="ind">+91</string>
+
 </resources>
 
 

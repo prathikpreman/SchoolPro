@@ -36,9 +36,7 @@ class CardActivity : AppCompatActivity() {
     lateinit var cardList:ArrayList<CardInfo>
     lateinit var cardAdapter:CardAdapter
 
-    companion object{
-         const val ADDCARD_REQUESTCODE=456
-    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +45,8 @@ class CardActivity : AppCompatActivity() {
 
 
         addFab.setOnClickListener {
-            startActivityForResult(Intent(this,AddCard::class.java),ADDCARD_REQUESTCODE)
+            startActivity(Intent(this,AddCard::class.java))
+            finish()
         }
 
         getAllCards()
@@ -72,19 +71,6 @@ class CardActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==ADDCARD_REQUESTCODE && resultCode== Activity.RESULT_OK){
-            Toast.makeText(this,"ok",Toast.LENGTH_SHORT).show()
-            getAllCards()
-            initRv()
-            cardAdapter.notifyDataSetChanged()
-        }
-    }
-
-
-
-
 
     private fun getAllCards(){
         cardList= ArrayList()
@@ -106,6 +92,15 @@ class CardActivity : AppCompatActivity() {
         card_rv.adapter = cardAdapter
         cardAdapter.notifyDataSetChanged()
     }
+
+
+
+
+    override fun onPause() {
+        super.onPause()
+       finish()
+    }
+
 
 
 }
