@@ -110,6 +110,15 @@
     <string name="verify">VERIFY</string>
     <string name="resend">RESEND</string>
     <string name="ind">+91</string>
+    <string name="entercurrentpin">Enter Current Pin</string>
+    <string name="enterpin">Enter Pin</string>
+    <string name="setloginpin">Set Login Pin</string>
+    <string name="create4digitpin">Create 4 digit Pin</string>
+    <string name="keycopied">Key Copied !</string>
+    <string name="twowayauth">Two Way Authentication</string>
+    <string name="add_atleast_one_fingerprint">Please Add at least one Fingerprint from phone Settings to continue
+    </string>
+    <string name="google_pin">Enter Google Authenticator Pin</string>
 
 </resources>
 

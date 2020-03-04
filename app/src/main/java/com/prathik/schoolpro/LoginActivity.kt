@@ -5,11 +5,13 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.hardware.biometrics.BiometricPrompt
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CancellationSignal
+import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -23,45 +25,155 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var obj: BiometricUtils
     private var cancellationSignal: CancellationSignal? = null
-    lateinit var shake:Animation
+    lateinit var shake: Animation
+    var enteredPassCode: String = ""
+    var flag = true
+    var PIN_MAX_LENGTH:Int=4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-         shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        val actionbar = supportActionBar
+        actionbar?.title = getString(R.string.enterpin)
 
-        if (PreferenceManager.getBoolValue(this, PreferenceManager.IF_FINGER_PRINT_ENABLED)) {
+        shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+
+
+
+        if (intent.getStringExtra("from") == "settings") {
+            actionbar?.title = getString(R.string.setloginpin)
+            actionbar?.setDisplayHomeAsUpEnabled(true)
+            setPinText.visibility = View.VISIBLE
+            setPinText.text = getString(R.string.entercurrentpin)
+        }
+
+
+        if (PreferenceManager.getStringValue(this, PreferenceManager.LOGIN_PIN).isEmpty()) {
+            setPin()
+        } else if (PreferenceManager.getBoolValue(this, PreferenceManager.IF_FINGER_PRINT_ENABLED)) {
             setFingerPrint()
+            setListenerforPass()
+        } else {
+            setListenerforPass()
         }
 
         setDialerClick()
-        setListsnerforPass()
+    }
+
+    private fun setPin() {
+        setPinText.visibility = View.VISIBLE
+        setPinText.text = getString(R.string.create4digitpin)
+
+        var tempPin = ""
+        loginPasscode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                if (s?.length == PIN_MAX_LENGTH && tempPin.isEmpty()) {
+                    tempPin = s.toString()
+                    loginPasscode.text = ""
+                    setPinText.text = "Re-Enter Pin"
+                } else if (s?.length == PIN_MAX_LENGTH && tempPin.isNotEmpty()) {
+
+                    if (s.toString() == tempPin) {
+                        PreferenceManager.setStringValue(this@LoginActivity, PreferenceManager.LOGIN_PIN, s.toString())
+
+                        if (intent.getStringExtra("from") == null) {
+                            goHome()
+                        } else {
+                            goBackToSettings()
+                        }
+
+                    } else {
+                        wrongPinTag.startAnimation(shake)
+                        tempPin = ""
+                        loginPasscode.text = ""
+                        setPinText.text = getString(R.string.create4digitpin)
+                    }
+                }
+            }
+
+        })
 
     }
 
-    private fun setListsnerforPass()
-    {
-        loginPasscode.addTextChangedListener(object : TextWatcher
-        {
+    private fun goBackToSettings() {
+        startActivity(Intent(this, Settings::class.java))
+    }
+
+    private fun setListenerforPass() {
+        setPinText.visibility = View.VISIBLE
+        setPinText.text = getString(R.string.enterpin)
+
+        loginPasscode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int)
-            {
-                if (loginPasscode.length()==4 && loginPasscode.text.toString() == "1234")
-                {
-                    wrongPinTag.visibility=View.INVISIBLE
-                    checkTwoStepAuth()
-                }
-                else if (loginPasscode.length()==4 && loginPasscode.text.toString() != "1234"){
-                    wrongPinTag.visibility=View.VISIBLE
-                    wrongPinTag.startAnimation(shake)
-                }
-                else{
-                    wrongPinTag.visibility=View.INVISIBLE
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (flag) {
+                    if (count > before && s != null) {
+                        enteredPassCode += s.last()
+                    } else if (count < before && s != null) {
+                        enteredPassCode = enteredPassCode.substring(0, s.length)
+                    }
+                    Log.d("exp5435", "count : $count")
+                    Log.d("exp5435", "before : $before")
+                    Log.d("exp5435", "pass : $enteredPassCode")
+                    if (count != before) {
+
+                        if (enteredPassCode.length == PIN_MAX_LENGTH && enteredPassCode == PreferenceManager.getStringValue(
+                                this@LoginActivity,
+                                PreferenceManager.LOGIN_PIN
+                            )
+                        ) {
+                            wrongPinTag.visibility = View.INVISIBLE
+
+                            flag = false
+                            if (intent.getStringExtra("from") == null) {
+                                checkTwoStepAuth()
+                            } else {
+                                loginPasscode.text = ""
+                                setPin()
+                            }
+
+                        } else if (enteredPassCode.length == PIN_MAX_LENGTH && enteredPassCode != PreferenceManager.getStringValue(
+                                this@LoginActivity,
+                                PreferenceManager.LOGIN_PIN
+                            )
+                        ) {
+                            wrongPinTag.visibility = View.VISIBLE
+                            loginPasscode.error = "Wrong PIN"
+                            wrongPinTag.startAnimation(shake)
+                        } else {
+                            wrongPinTag.visibility = View.INVISIBLE
+                        }
+
+                        lockPassAnim()
+                    }
+
                 }
             }
         })
+    }
+
+
+    private fun lockPassAnim() {
+        Log.d("exp5435", "running...")
+        val delayMillis: Long = 500
+        val handler = Handler()
+        handler.postDelayed({
+            if (loginPasscode.text.isNotEmpty()) {
+                val re = Regex("[0-9]")
+                loginPasscode.text = re.replace(loginPasscode.text, "•")
+                //  loginPasscode.text= (loginPasscode.text.toString().replace("""[$,.]""".toRegex(), "•"))
+            }
+        }, delayMillis)
+
     }
 
     private fun setFingerPrint() {
@@ -78,12 +190,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkTwoStepAuth() {
 
+        setPinText.text = getString(R.string.google_pin)
+
         if (PreferenceManager.getBoolValue(this, PreferenceManager.TWO_STEP_AUTHENTCATION)) {
-            loginPasscode.text=""
+            loginPasscode.text = ""
+            loginPasscode.maxLines=6
+            PIN_MAX_LENGTH=6
 
             var authenticator = Authenticator()
-
-
             loginPasscode.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                 }
@@ -92,6 +206,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                     if (loginPasscode.text.toString().length == 6 && loginPasscode.text.toString() == authenticator.getTOTPCode(
                             PreferenceManager.getStringValue(
                                 this@LoginActivity,
@@ -103,20 +218,27 @@ class LoginActivity : AppCompatActivity() {
                         goHome()
                     } else if (loginPasscode.text.toString().length == 6) {
                         loginPasscode.error = "Wrong TOTP"
+                        wrongPinTag.visibility = View.VISIBLE
+                        loginPasscode.error = "Wrong TOTP"
+                        wrongPinTag.startAnimation(shake)
+                    } else if(loginPasscode.text.toString().length < 6){
+                        wrongPinTag.visibility = View.INVISIBLE
+                        loginPasscode.error = null
                     }
                 }
             })
         } else {
             goHome()
         }
-
     }
 
     private fun goHome() {
-        startActivity(Intent(
-            this@LoginActivity,
-            CardActivity::class.java
-        ))
+        startActivity(
+            Intent(
+                this@LoginActivity,
+                CardActivity::class.java
+            )
+        )
         finish()
     }
 
@@ -183,23 +305,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun setDialerClick(){
-        key0.setOnClickListener {setPassCodeView(R.string.zero) }
-        key1.setOnClickListener {setPassCodeView(R.string.one) }
-        key2.setOnClickListener {setPassCodeView(R.string.two) }
-        key3.setOnClickListener {setPassCodeView(R.string.three) }
-        key4.setOnClickListener {setPassCodeView(R.string.four) }
-        key5.setOnClickListener {setPassCodeView(R.string.five) }
-        key6.setOnClickListener {setPassCodeView(R.string.six) }
-        key7.setOnClickListener {setPassCodeView(R.string.seven) }
-        key8.setOnClickListener {setPassCodeView(R.string.eight) }
-        key9.setOnClickListener {setPassCodeView(R.string.nine) }
-        keyBackspace.setOnClickListener { if(loginPasscode.text.isNotEmpty()){ loginPasscode.text=loginPasscode.text.toString().substring(0,loginPasscode.text.length-1) } }
+    private fun setDialerClick() {
+        key0.setOnClickListener { setPassCodeView(R.string.zero) }
+        key1.setOnClickListener { setPassCodeView(R.string.one) }
+        key2.setOnClickListener { setPassCodeView(R.string.two) }
+        key3.setOnClickListener { setPassCodeView(R.string.three) }
+        key4.setOnClickListener { setPassCodeView(R.string.four) }
+        key5.setOnClickListener { setPassCodeView(R.string.five) }
+        key6.setOnClickListener { setPassCodeView(R.string.six) }
+        key7.setOnClickListener { setPassCodeView(R.string.seven) }
+        key8.setOnClickListener { setPassCodeView(R.string.eight) }
+        key9.setOnClickListener { setPassCodeView(R.string.nine) }
+        keyBackspace.setOnClickListener {
+            if (loginPasscode.text.isNotEmpty()) {
+                loginPasscode.text = loginPasscode.text.toString().substring(0, loginPasscode.text.length - 1)
+            }
+        }
+        keyBackspace.setOnLongClickListener {
+            loginPasscode.text = ""
+            return@setOnLongClickListener true
+        }
     }
 
-    private fun setPassCodeView(number:Int){
-        if(loginPasscode.text.length<4){
-            loginPasscode.text=loginPasscode.text.toString()+getString(number)
+    private fun setPassCodeView(number: Int) {
+        if (loginPasscode.text.length < PIN_MAX_LENGTH) {
+            loginPasscode.text = loginPasscode.text.toString() + getString(number)
         }
     }
 
@@ -212,4 +342,18 @@ class LoginActivity : AppCompatActivity() {
         super.onDestroy()
         finish()
     }
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (intent.getStringExtra("from") == "settings")
+            goBackToSettings()
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        goBackToSettings()
+        return true
+    }
+
 }
