@@ -68,6 +68,7 @@
         <item>United Bank of India</item>
         <item>Vijaya Bank</item>
         <item>YES Bank Limited</item>
+        <item>Other Bank</item>
 
     </string-array>
 
@@ -79,7 +80,6 @@
         <item>Visa Electron</item>
         <item>Maestro</item>
     </string-array>
-
 
 
     <string name="one">1</string>
@@ -119,6 +119,8 @@
     <string name="add_atleast_one_fingerprint">Please Add at least one Fingerprint from phone Settings to continue
     </string>
     <string name="google_pin">Enter Google Authenticator Pin</string>
+    <string name="reenterpin">Re-Enter Pin</string>
+    <string name="reset">Reset</string>
 
 </resources>
 

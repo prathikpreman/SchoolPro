@@ -25,7 +25,6 @@ class Settings : AppCompatActivity() {
         isFingerPrintAvailable()
         setTwoStepAuth()
         setLockPin()
-
     }
 
     private fun setTwoStepAuth() {
@@ -40,12 +39,10 @@ class Settings : AppCompatActivity() {
             btn_fingerPrint.visibility = View.GONE
         } else {
             fingerPrintSwitch.isChecked =
-                PreferenceManager.getBoolValue(this, PreferenceManager.IF_FINGER_PRINT_ENABLED)
+            PreferenceManager.getBoolValue(this, PreferenceManager.IF_FINGER_PRINT_ENABLED)
 
             fingerPrintSwitch.setOnCheckedChangeListener { _, isChecked ->
-
                 PreferenceManager.setBoolValue(this, PreferenceManager.IF_FINGER_PRINT_ENABLED, isChecked)
-
                 if (isChecked && !(obj.isFingerprintAvailable(this))) {
                     Toast.makeText(this, getString(R.string.add_atleast_one_fingerprint), Toast.LENGTH_LONG).show()
                     PreferenceManager.setBoolValue(this, PreferenceManager.IF_FINGER_PRINT_ENABLED, false)

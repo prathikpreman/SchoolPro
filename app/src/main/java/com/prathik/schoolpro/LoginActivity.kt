@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
                 if (s?.length == PIN_MAX_LENGTH && tempPin.isEmpty()) {
                     tempPin = s.toString()
                     loginPasscode.text = ""
-                    setPinText.text = "Re-Enter Pin"
+                    setPinText.text = getString(R.string.reenterpin)
                 } else if (s?.length == PIN_MAX_LENGTH && tempPin.isNotEmpty()) {
 
                     if (s.toString() == tempPin) {
@@ -97,9 +97,7 @@ class LoginActivity : AppCompatActivity() {
                         setPinText.text = getString(R.string.create4digitpin)
                     }
                 }
-            }
-
-        })
+            } })
 
     }
 
@@ -151,11 +149,11 @@ class LoginActivity : AppCompatActivity() {
                             wrongPinTag.startAnimation(shake)
                         } else {
                             wrongPinTag.visibility = View.INVISIBLE
+                            loginPasscode.error = null
                         }
 
                         lockPassAnim()
                     }
-
                 }
             }
         })
@@ -190,12 +188,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun checkTwoStepAuth() {
 
-        setPinText.text = getString(R.string.google_pin)
-
         if (PreferenceManager.getBoolValue(this, PreferenceManager.TWO_STEP_AUTHENTCATION)) {
             loginPasscode.text = ""
             loginPasscode.maxLines=6
             PIN_MAX_LENGTH=6
+            setPinText.text = getString(R.string.google_pin)
 
             var authenticator = Authenticator()
             loginPasscode.addTextChangedListener(object : TextWatcher {

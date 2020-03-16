@@ -9,13 +9,10 @@ import android.content.Context.MODE_PRIVATE
 
 object PreferenceManager {
 
-
     val TWO_STEP_AUTHENTCATION="TWO_STEP_AUTHENTCATION"
     val TWO_STEP_AUTHENTCATION_KEY="TWO_STEP_AUTHENTCATION_KEY"
     val IF_FINGER_PRINT_ENABLED="IF_FINGER_PRINT_ENABLED"
     val LOGIN_PIN="LOGIN_PIN"
-
-
 
 
     private fun getSharedPreferences(context: Context,key:String): SharedPreferences {
@@ -23,12 +20,12 @@ object PreferenceManager {
     }
 
     fun getStringValue(context: Context,key:String): String {
-        return getSharedPreferences(context,key).getString(key, "")
+        return getSharedPreferences(context,key).getString(key, "").decrypt()
     }
 
     fun setStringValue(context: Context,key:String, newValue: String) {
         val editor = getSharedPreferences(context,key).edit()
-        editor.putString(key, newValue)
+        editor.putString(key, newValue.encrypt())
         editor.apply()
     }
 

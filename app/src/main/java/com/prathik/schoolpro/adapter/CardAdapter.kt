@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
@@ -18,6 +19,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.prathik.schoolpro.R
 import com.prathik.schoolpro.card.realmmodels.CardInfo
+import com.prathik.schoolpro.util.decrypt
 import com.wajahatkarim3.easyflipview.EasyFlipView
 
 
@@ -111,20 +113,34 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
     override fun onBindViewHolder(holder: CardAdapter.CardHolder, position: Int) {
 
         var card = cardList[position]
-        holder.cardName.text = card.nameOnCard
-        holder.cardCVV.text = card.cvv
-        var cardNumber=card.cardNo.substring(0,4)+" "+card.cardNo.substring(4,8)+" "+card.cardNo.substring(8,12)+" "+card.cardNo.substring(12,16)
+        holder.cardName.text = card.nameOnCard.decrypt()
+        holder.cardCVV.text = card.cvv.decrypt()
+        holder.rawExpiry.text= card.validThrough.decrypt()
+        var cardNumber=(card.cardNo.decrypt()).substring(0,4)+" "+(card.cardNo.decrypt()).substring(4,8)+" "+(card.cardNo.decrypt()).substring(8,12)+" "+(card.cardNo.decrypt()).substring(12,16)
         holder.cardNumber.text = cardNumber
         holder.cardFlipView.setOnClickListener {
             holder.cardFlipView.flipTheView()
         }
 
-        setCardTypeIcon(card.cardType, holder)
-        setBankIcon(card.bankName, holder)
+        setCardTypeIcon(card.cardType.decrypt(), holder)
+
+
+
+        if(setBankIcon(card.bankName.decrypt())!=null){
+            setBankIcon(card.bankName.decrypt())?.let { holder.bankLogo.setImageResource(it) }
+            holder.bankLogo.visibility=View.VISIBLE
+            holder.otherBankName.visibility=View.GONE
+        }else{
+            holder.bankLogo.visibility=View.GONE
+            holder.otherBankName.visibility=View.VISIBLE
+            holder.otherBankName.text=card.bankName.decrypt()
+        }
+
+
         setCardSkin(card.cardSkin,holder)
 
         holder.notiBtn.setOnClickListener {
-            showNotification(cardNumber,card.validThrough)
+            showNotification(cardNumber,card.validThrough.decrypt())
         }
     }
 
@@ -133,11 +149,13 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
         var cardNumber: TextView = v.findViewById(R.id.raw_cardNumber)
         var cardCVV: TextView = v.findViewById(R.id.raw_cardCVV)
         var cardName: TextView = v.findViewById(R.id.raw_cardName)
+        var rawExpiry: TextView = v.findViewById(R.id.raw_Expiry)
         var cardFlipView: EasyFlipView = v.findViewById(R.id.cardFlipView)
         var cardIcon: ImageView = v.findViewById(R.id.cardIcon)
         var bankLogo: ImageView = v.findViewById(R.id.bankLogo)
         var cardSkinLayout: ImageView = v.findViewById(R.id.cardSkinLayout)
         var notiBtn: Button = v.findViewById(R.id.notiBtn)
+        var otherBankName: TextView = v.findViewById(R.id.otherBankName)
     }
 
 
@@ -172,19 +190,20 @@ class CardAdapter( private val cardList: ArrayList<CardInfo>, private val contex
 
     }
 
-    private fun setBankIcon(bank: String, holder: CardHolder) {
+    private fun setBankIcon(bank: String):Int? {
         val res = context.resources
         val bankNames = res.getStringArray(R.array.bankNames)
 
         for (i in 0 until (bankNames.size - 1)) {
-
             if (bank == bankNames[i]) {
-
-                holder.bankLogo.setImageResource(bankIcon[i])
+                return bankIcon[i]
             }
         }
 
+        return null
     }
+
+
 
     private fun showNotification(cardNo:String,validThrough:String){
         notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

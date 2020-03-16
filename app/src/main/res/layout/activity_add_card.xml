@@ -78,9 +78,9 @@
                         android:id="@+id/validThroughText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLength="7"
+                        android:maxLength="5"
                         android:inputType="number"
-                        android:hint="Valid Through"/>
+                        android:hint="Expiry"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -106,6 +106,23 @@
                     android:layout_height="match_parent"/>
 
         </LinearLayout>
+
+
+
+        <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                app:errorEnabled="true"
+                android:id="@+id/otherBankLayout"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:id="@+id/other_bank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:hint="Other Bank Name"/>
+
+        </android.support.design.widget.TextInputLayout>
 
 
         <TextView android:layout_width="match_parent" android:layout_height="1dp" android:background="#ccc"/>

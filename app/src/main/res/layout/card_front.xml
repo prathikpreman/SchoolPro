@@ -34,19 +34,61 @@
                           android:layout_gravity="left"
                           android:gravity="left"
                           android:paddingLeft="20dp"
-                          android:orientation="vertical"
+                          android:orientation="horizontal"
                           android:layout_height="0dp">
 
-                <ImageView android:layout_width="100dp"
-                           android:src="@drawable/federalbank"
-                           android:id="@+id/bankLogo"
-                           android:layout_gravity="left"
-                           android:layout_height="wrap_content"/>
+
+                <LinearLayout android:layout_width="0dp"
+                              android:layout_weight="1"
+                              android:layout_height="match_parent">
+                    <ImageView android:layout_width="100dp"
+                               android:src="@drawable/federalbank"
+                               android:id="@+id/bankLogo"
+                               android:visibility="gone"
+                               android:layout_gravity="left"
+                               android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="wrap_content"
+                              android:text="Other Bank"
+                              android:layout_gravity="center|left"
+                              android:gravity="center|left"
+                              android:id="@+id/otherBankName"
+                              android:textColor="@color/colorWhite"
+                              android:background="#A4000000"
+                              android:paddingRight="10dp"
+                              android:paddingLeft="10dp"
+                              android:textStyle="bold"
+                              android:textAllCaps="true"
+                              android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+               <LinearLayout android:layout_width="0dp"
+                              android:layout_weight="1"
+                             android:paddingRight="20dp"
+                              android:layout_height="match_parent">
+
+                    <TextView android:layout_width="match_parent"
+                              android:text="DEBIT CARD"
+                              android:layout_gravity="center|right"
+                              android:gravity="center|right"
+                              android:textSize="10sp"
+                              android:textColor="@color/colorWhite"
+                              android:textStyle="italic"
+                              android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_weight="0.5"
+                          android:layout_height="0dp">
+            </LinearLayout>
 
                 <LinearLayout android:layout_width="match_parent"
-                              android:layout_weight="2"
+                              android:layout_weight="1"
                               android:layout_gravity="center"
                               android:gravity="center"
                               android:orientation="vertical"
@@ -65,6 +107,35 @@
                               android:layout_height="wrap_content"/>
 
                 </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_weight="0.5"
+                              android:orientation="horizontal"
+                              android:layout_height="0dp">
+
+                    <TextView android:layout_width="wrap_content"
+                              android:text="Valid Thru"
+                              android:textAllCaps="true"
+                              android:layout_gravity="left|center"
+                              android:gravity="center"
+                              android:textSize="8sp"
+                              android:layout_marginLeft="30dp"
+                              android:textColor="#fff"
+                              android:layout_height="wrap_content"/>
+
+                    <TextView android:layout_width="match_parent"
+                              android:text="00/0000"
+                              android:textAllCaps="true"
+                              android:layout_gravity="left|center"
+                              android:gravity="left|center"
+                              android:textSize="8sp"
+                              android:id="@+id/raw_Expiry"
+                              android:layout_marginLeft="8dp"
+                              android:fontFamily="@font/cardfont"
+                              android:textColor="#fff"
+                              android:layout_height="wrap_content"/>
+                </LinearLayout>
+
 
                 <LinearLayout android:layout_width="match_parent"
                               android:layout_weight="1"

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
             android:name=".SchoolProApp"
@@ -15,30 +16,42 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity"
-                  android:finishOnTaskLaunch="true"
-                  android:clearTaskOnLaunch="true">
+        <activity android:name=".AttendanceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Settings"
-                  android:finishOnTaskLaunch="true">
+
+        <meta-data
+                android:name="com.google.android.gms.vision.DEPENDENCIES"
+                android:value="ocr"/>
+
+        <activity android:name=".vision.OCRActivity">
+        </activity>
+        <activity
+                android:name=".LoginActivity"
+                android:clearTaskOnLaunch="true"
+                android:finishOnTaskLaunch="true">
+
+        </activity>
+        <activity
+                android:name=".Settings"
+                android:finishOnTaskLaunch="true">
         </activity>
         <activity android:name=".TwoWayAuthentication">
         </activity>
         <activity android:name=".Corousel">
         </activity>
-        <activity android:name=".AddCard"
-                  android:finishOnTaskLaunch="true">
+        <activity
+                android:name=".AddCard"
+                android:finishOnTaskLaunch="true">
         </activity>
-        <activity android:name=".CardActivity"
-                  android:finishOnTaskLaunch="true"
-                  android:clearTaskOnLaunch="true">
-
+        <activity
+                android:name=".CardActivity"
+                android:clearTaskOnLaunch="true"
+                android:finishOnTaskLaunch="true">
         </activity>
         <activity
                 android:name=".PlayerActivity"

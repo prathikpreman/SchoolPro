@@ -68,6 +68,10 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.13'
     implementation 'com.google.zxing:core:3.2.0'
 
+    implementation 'com.google.android.gms:play-services-vision:15.0.1'
+
+    implementation 'com.kyanogen.signatureview:signature-view:1.2'
+
 
     /*  implementation 'com.google.android.exoplayer:exoplayer-core:2.10.1'
     implementation 'com.google.android.exoplayer:exoplayer-dash:2.10.1'
